@@ -12,7 +12,7 @@ spec:
         - sleep
         - "1000000"
     - name: redis-amb-read
-      image: hub.qingyuanos.com/admin/port-forward-haproxy
+      image: xwangqingyuan/port-forward-haproxy
       env:
         - name: INPUT_PORT
           value: "6379"
@@ -23,7 +23,7 @@ spec:
       ports:
         - containerPort: 6379
     - name: redis-amb-write
-      image: hub.qingyuanos.com/admin/port-forward-haproxy
+      image: xwangqingyuan/port-forward-haproxy
       env:
         - name: INPUT_PORT
           value: "16379"
