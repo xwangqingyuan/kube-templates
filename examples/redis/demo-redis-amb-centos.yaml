@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: demo-redis-amb-centos
+  name: demo-redis-amb-centos
+spec:
+  containers:
+    - name: app-main-container
+      image: centos:7
+      args:
+        - sleep
+        - "1000000"
+    - name: redis-amb-read
+      image: hub.qingyuanos.com/admin/port-forward-haproxy
+      env:
+        - name: INPUT_PORT
+          value: "6379"
+        - name: TARGET_IP
+          value: "10.123.248.129"
+        - name: TARGET_PORT
+          value: "6379"
+      ports:
+        - containerPort: 6379
+    - name: redis-amb-write
+      image: hub.qingyuanos.com/admin/port-forward-haproxy
+      env:
+        - name: INPUT_PORT
+          value: "16379"
+        - name: TARGET_IP
+          value: "10.120.80.5"
+        - name: TARGET_PORT
+          value: "6379"
+      ports:
+        - containerPort: 16379
+  volumes:
+    - name: data
+      emptyDir: {}
