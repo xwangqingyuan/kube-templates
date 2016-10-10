@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-wq-1
+spec:
+  parallelism: 2
+  template:
+    metadata:
+      name: job-wq-1
+    spec:
+      containers:
+      - name: c
+        image: xwangqingyuan/rediswq
+        env:
+          - name: REDIS_SERVICE_HOST
+            value: "10.0.0.180"
+          - name: REDIS_JOB_NAME
+            value: "job"
+      restartPolicy: OnFailure
